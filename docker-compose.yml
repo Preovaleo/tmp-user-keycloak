@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  keycloak:
+    image: "jboss/keycloak:7.0.0"
+    environment:
+      - "KEYCLOAK_USER=admin"
+      - "KEYCLOAK_PASSWORD=verysecretpassword"
+      - "DB_VENDOR=postgres"
+      - "DB_ADDR=postgresql"
+      - "DB_USER=postgres"
+      - "DB_PASSWORD=mysecretpassword"
+    links:
+      - "postgresql"
+    depends_on:
+      - postgresql
+    ports:
+      - "8001:8080"
+  postgresql:
+    image: "postgres:12"
+    environment:
+      - "POSTGRES_PASSWORD=mysecretpassword"
